@@ -18,7 +18,12 @@ export const inject = ['workbench', 'files']
 
 /** Local structural face of ctx.files (avoid type dependency on dock-files). */
 interface FilesService {
-  registerFileViewer(def: { id: string; exts?: string[]; default?: boolean }): () => void
+  registerFileViewer(def: {
+    id: string
+    exts?: string[]
+    default?: boolean
+    icon?: { color?: string; path?: string; viewBox?: string }
+  }): () => void
 }
 
 /** Client plugin body. */
@@ -29,10 +34,13 @@ export function apply(ctx: WorkbenchContext): void {
   // anyway so a broken runtime degrades instead of throwing.
   if (workbench === undefined || files === undefined) return
 
-  // Register the file domain's image viewer for raster/image extensions.
+  // Register the file domain's image viewer for raster/image extensions,
+  // with the explorer icon for those types (tint only; the generic document
+  // silhouette is kept — a custom glyph can be added via icon.path later).
   ctx.effect(() => files.registerFileViewer({
     id: 'image',
     exts: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'svg', 'ico', 'avif'],
+    icon: { color: '#a074c4' },
   }), 'dock-images: file viewer')
 
   // The view that receives open seeds ({ path, title }). It stays registered
