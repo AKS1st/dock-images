@@ -4,6 +4,10 @@
 
 Image viewer plugin of the dock family: registers the `image` file viewer for raster/image extensions against the dock-files file domain, plus the matching editor-area view; reads image content through its own `/dock-images` host route (whole-file base64, 20 MiB cap).
 
+## Preview
+
+![dock-images image viewer](assets/image.png)
+
 ## Features
 
 - **Supported formats**: PNG, JPEG, GIF, WebP, BMP, SVG, ICO, AVIF.

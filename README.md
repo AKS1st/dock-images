@@ -4,6 +4,10 @@
 
 dock 系列的图片查看插件：为 dock-files 文件域注册 `image` 文件查看器（栅格/图片扩展名）与对应的编辑器区视图，通过自己的 `/dock-images` 主机路由读取图片内容（整文件 base64，20 MiB 上限）。
 
+## 效果预览
+
+![dock-images 图片查看视图](assets/image.png)
+
 ## 功能
 
 - **支持格式**：PNG、JPEG、GIF、WebP、BMP、SVG、ICO、AVIF。
