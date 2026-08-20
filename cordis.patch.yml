@@ -1,0 +1,7 @@
+# dock-images bundle patch: mounts the image-viewer feature plugin row
+# (client half registers the 'image' file viewer against dock-files and
+# the matching editor-area view against dock; host half serves the
+# /dock-images/read JSON API).
+- insert:
+    - id: dock-images
+      name: 'dock-images'
