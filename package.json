@@ -1,6 +1,6 @@
 {
   "name": "dock-images",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Image viewer for the dock file explorer: renders PNG, JPEG, GIF, WebP, BMP, SVG, ICO and AVIF files.",
   "type": "module",
   "repository": {
