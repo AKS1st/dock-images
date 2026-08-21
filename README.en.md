@@ -41,7 +41,7 @@ dsh plugin add github:AKS1st/dock-images
 
 ## Security
 
-The `/dock-images` route only accepts POSTs from trusted origins (loopback / trustedHosts plus same-origin check); read paths are canonicalized with realpath and confined to the session workspace (403 otherwise).
+The `/dock-images` route only accepts POSTs from trusted origins (loopback / trustedHosts plus same-origin check); read paths only need to be absolute — they are not confined to the session workspace, because the conversation context can mention images outside it (e.g. `~/.dsh/skills/...`) and the viewers open them for viewing.
 
 ## License
 

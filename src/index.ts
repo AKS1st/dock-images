@@ -4,9 +4,13 @@
  * like the /api gateway; conversation-scoped through the session cwd.
  * Wire / fence / fs helpers follow the same stripped pattern as dock-files
  * / dock-editor.
+ *
+ * Reads accept any absolute path — the conversation context can mention
+ * images outside the session workspace (e.g. ~/.dsh/skills/...), and the
+ * workbench viewers open them for viewing.
  */
-import { readFile, realpath, stat } from 'node:fs/promises'
-import { basename, dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
+import { readFile, stat } from 'node:fs/promises'
+import { resolve } from 'node:path'
 import type { IncomingHttpHeaders, IncomingMessage, ServerResponse } from 'node:http'
 
 export const name = 'dock-images'
@@ -79,27 +83,13 @@ function requireAbsolute(path: string): string {
 }
 
 /**
- * Confine a caller-supplied absolute path to the session workspace: the
- * canonical (symlink-resolved) path must equal the canonical session cwd or
- * live under it (separator boundary). Any escape — `..`, a symlink pointing
- * out of the workspace, or an unrelated absolute path — is rejected 403.
- * Returns the canonical target path.
+ * Resolve a caller-supplied absolute path for READING: no workspace
+ * containment — viewers open images anywhere on the host, because the
+ * conversation context can mention paths outside the session workspace.
  */
-async function resolveWorkspacePath(cwd: string, raw: string): Promise<string> {
-  const root = await realpath(cwd).catch(() => resolve(cwd))
+function resolveReadPath(raw: string): string {
   requireAbsolute(raw)
-  let target: string
-  try {
-    target = await realpath(raw)
-  } catch {
-    const parent = await realpath(dirname(raw)).catch(() => dirname(raw))
-    target = join(parent, basename(raw))
-  }
-  const rel = relative(root, target)
-  if (rel === '' || (rel !== '..' && !rel.startsWith(`..${sep}`) && !isAbsolute(rel))) {
-    return target
-  }
-  throw new WbError('forbidden', `path is outside the session workspace: "${raw}"`, 403)
+  return resolve(raw)
 }
 
 function messageOf(error: unknown): string {
@@ -261,7 +251,7 @@ export function apply(ctx: WbContext): void {
             return
           }
           const cwd = sessionCwdOf(ctx, sessionId)
-          const path = await resolveWorkspacePath(cwd, raw)
+          const path = resolveReadPath(raw)
           const image = await readImageBase64(path)
           writeOk(res, { image, cwd })
           return
