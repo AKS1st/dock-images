@@ -39,6 +39,14 @@ dsh plugin add github:AKS1st/dock-files
 dsh plugin add github:AKS1st/dock-images
 ```
 
+从 npm registry 安装同样支持：
+
+```sh
+dsh plugin add dock-base
+dsh plugin add dock-files
+dsh plugin add dock-images
+```
+
 ## 安全
 
 `/dock-images` 路由只接受受信任来源（回环地址 / trustedHosts + 同源检查）的 POST；读取路径只要求是绝对路径、不限定会话工作区——对话上下文可能提及工作区外的图片（如 `~/.dsh/skills/...`），查看器可打开它们查看。

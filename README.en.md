@@ -39,6 +39,14 @@ dsh plugin add github:AKS1st/dock-files
 dsh plugin add github:AKS1st/dock-images
 ```
 
+The same plugins are also available from the npm registry:
+
+```sh
+dsh plugin add dock-base
+dsh plugin add dock-files
+dsh plugin add dock-images
+```
+
 ## Security
 
 The `/dock-images` route only accepts POSTs from trusted origins (loopback / trustedHosts plus same-origin check); read paths only need to be absolute — they are not confined to the session workspace, because the conversation context can mention images outside it (e.g. `~/.dsh/skills/...`) and the viewers open them for viewing.
