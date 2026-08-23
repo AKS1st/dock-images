@@ -36,17 +36,17 @@ Requires `dock` and `dock-files`:
 Recommended install from the npm registry:
 
 ```sh
-dsh plugin add dock-base
-dsh plugin add dock-files
-dsh plugin add dock-images
+dsh plugin --profile web add dock-base
+dsh plugin --profile web add dock-files
+dsh plugin --profile web add dock-images
 ```
 
 Or install from GitHub (alternative):
 
 ```sh
-dsh plugin add github:AKS1st/dock
-dsh plugin add github:AKS1st/dock-files
-dsh plugin add github:AKS1st/dock-images
+dsh plugin --profile web add github:AKS1st/dock
+dsh plugin --profile web add github:AKS1st/dock-files
+dsh plugin --profile web add github:AKS1st/dock-images
 ```
 
 ## Security
