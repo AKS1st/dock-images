@@ -34,6 +34,13 @@ export function apply(ctx: WorkbenchContext): void {
   // anyway so a broken runtime degrades instead of throwing.
   if (workbench === undefined || files === undefined) return
 
+  ctx.effect(() => workbench.registerPlugin({
+    id: 'dock-images',
+    title: 'Images',
+    description: 'Image viewer for the dock file explorer: renders PNG, JPEG, GIF, WebP, BMP, SVG, ICO and AVIF files.',
+    hasEntry: false,
+  }), 'dock-images: plugin metadata')
+
   // Register the file domain's image viewer for raster/image extensions,
   // with the explorer icon for those types: a picture glyph (rounded frame +
   // sun + mountain, single evenodd path in a 16×16 viewBox) tinted purple.
